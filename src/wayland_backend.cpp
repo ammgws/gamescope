@@ -1277,7 +1277,9 @@ namespace gamescope
         else if ( m_FormatModifiers.contains( DRM_FORMAT_ARGB2101010 ) )
             u10BitFormat = VK_FORMAT_A2R10G10B10_UNORM_PACK32;
 
-        assert( u8BitFormat != VK_FORMAT_UNDEFINED );
+		# fallback for devices that do not support modifiers
+		if ( u8BitFormat == VK_FORMAT_UNDEFINED )
+		  u8BitFormat = VK_FORMAT_B8G8R8A8_UNORM
 
         *pPrimaryPlaneFormat = u10BitFormat != VK_FORMAT_UNDEFINED ? u10BitFormat : u8BitFormat;
         *pOverlayPlaneFormat = u8BitFormat;
